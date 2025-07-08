@@ -1,0 +1,31 @@
+/* Dashboard.css */
+
+.dashboard-container {
+    min-height: 90vh;
+    width: 90%;
+    margin: auto;
+    padding: 2rem;
+    animation: fadeIn 0.15s ease-in-out;
+}
+
+
+.dashboard-content {
+    max-width: 900px;
+    margin: auto;
+    padding: 2rem;
+}
+
+.dashboard-heading {
+    font-size: 28px;
+    margin-bottom: 1.5rem;
+}
+
+.user-card {
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 18px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    color: #333;
+}
