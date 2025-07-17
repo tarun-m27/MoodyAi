@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import "./dashboard.css";
 import "../home/home.css"
 
 function Dashboard() {
   const [userData, setUserData] = useState({ name: "", email: "" });
-
+   const navigate = useNavigate()
   useEffect(() => {
     // Simulate fetch from backend (replace with real API later)
     const mockUser = {
@@ -13,6 +15,9 @@ function Dashboard() {
     };
     setUserData(mockUser);
   }, []);
+   const handleSignOut = () => {
+    navigate("/");
+  };
 
   return (
     <div className="dashboard-container">
@@ -33,6 +38,9 @@ function Dashboard() {
           <p><strong>Name:</strong> {userData.name}</p>
           <p><strong>Email:</strong> {userData.email}</p>
         </div>
+<button className="signout-button" onClick={handleSignOut}>
+      Sign Out
+    </button>
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import "./signin.css";
+import { loginUser, registerUser } from "../../api/auth";
+import { useNavigate } from "react-router-dom";
 
 function Signin() {
   const [isSignup, setIsSignup] = useState(false);
@@ -9,19 +11,36 @@ function Signin() {
     password: "",
   });
 
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isSignup) {
-      console.log("Signing up with:", form);
-    } else {
-      console.log("Signing in with:", {
-        email: form.email,
-        password: form.password,
-      });
+
+    try {
+      let res;
+
+      if (isSignup) {
+        res = await registerUser(form);
+      } else {
+        res = await loginUser(form);
+      }
+
+      // Store token + basic user info
+      localStorage.setItem("token", res.data.token);
+      localStorage.setItem("user", JSON.stringify({
+        id: res.data.id,
+        name: res.data.name,
+        email: res.data.email
+      }));
+
+      alert(isSignup ? "Signed up successfully!" : "Signed in successfully!");
+      navigate("/home");
+    } catch (err) {
+alert("Authentication failed: " + (err?.response?.data?.message || err.message || "Unknown error"));
     }
   };
 
